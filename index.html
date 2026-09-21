@@ -1,1 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rare Amigos — Built Weird. Made to Collect.</title>
+  <meta name="description" content="Rare Amigos — a hand-drawn 10,000 PFP collection on Robinhood Chain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #080808;
+      --paper: #f5f0df;
+      --pink: #ff4eaa;
+      --cyan: #20d8df;
+      --yellow: #ffd51b;
+      --purple: #7b45ff;
+      --green: #55e34c;
+      --red: #ff4c3f;
+      --white: #fffdf4;
+    }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(123,69,255,.22), transparent 18rem),
+        radial-gradient(circle at 90% 20%, rgba(32,216,223,.16), transparent 20rem),
+        var(--ink);
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background-image:
+        radial-gradient(#fff 1px, transparent 1px),
+        radial-gradient(#fff 1px, transparent 1px);
+      background-size: 23px 23px, 41px 41px;
+      background-position: 0 0, 13px 17px;
+      mix-blend-mode: screen;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1160px, calc(100% - 32px)); margin: auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 3px solid var(--white);
+      background: rgba(8,8,8,.88);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-family: "Permanent Marker", cursive;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      letter-spacing: 1px;
+      transform: rotate(-2deg);
+      text-shadow: 3px 3px 0 var(--purple);
+    }
+
+    nav { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+    nav a {
+      font-weight: 700;
+      font-size: .86rem;
+      text-transform: uppercase;
+      padding: 9px 12px;
+      border: 2px solid transparent;
+    }
+    nav a:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    .hero {
+      padding: 70px 0 45px;
+      text-align: center;
+      position: relative;
+    }
+
+    .sticker {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--ink);
+      border: 4px solid var(--white);
+      box-shadow: 7px 7px 0 var(--pink);
+      padding: 10px 18px;
+      font-family: "Permanent Marker", cursive;
+      transform: rotate(-3deg);
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Permanent Marker", cursive;
+      font-size: clamp(4rem, 14vw, 10.5rem);
+      line-height: .88;
+      letter-spacing: -3px;
+      color: var(--white);
+      text-shadow:
+        5px 5px 0 var(--purple),
+        10px 10px 0 var(--pink);
+      transform: rotate(-2deg);
+    }
+
+    .tagline {
+      max-width: 780px;
+      margin: 32px auto 0;
+      font-family: "Permanent Marker", cursive;
+      font-size: clamp(1.35rem, 3vw, 2.1rem);
+      color: var(--cyan);
+      text-shadow: 2px 2px 0 var(--purple);
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 18px auto 0;
+      color: #d7d2c6;
+      line-height: 1.7;
+    }
+
+    .actions { margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border: 3px solid var(--white);
+      font-weight: 800;
+      text-transform: uppercase;
+      background: var(--pink);
+      color: var(--ink);
+      box-shadow: 5px 5px 0 var(--cyan);
+      transition: transform .15s ease;
+    }
+    .btn:hover { transform: translate(-3px, -3px) rotate(-1deg); }
+    .btn.alt { background: var(--yellow); box-shadow: 5px 5px 0 var(--purple); }
+
+    .section { padding: 55px 0; }
+    .section-title {
+      display: inline-block;
+      font-family: "Permanent Marker", cursive;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      color: var(--yellow);
+      text-shadow: 3px 3px 0 var(--pink);
+      transform: rotate(-2deg);
+      margin: 0 0 28px;
+    }
+
+    .panel {
+      border: 4px solid var(--white);
+      background: #111;
+      padding: 28px;
+      box-shadow: 9px 9px 0 var(--purple);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat {
+      border: 3px solid var(--ink);
+      padding: 24px 14px;
+      color: var(--ink);
+      text-align: center;
+      transform: rotate(var(--r));
+      box-shadow: 5px 5px 0 var(--white);
+    }
+    .stat:nth-child(1) { background: var(--yellow); --r: -2deg; }
+    .stat:nth-child(2) { background: var(--pink); --r: 2deg; }
+    .stat:nth-child(3) { background: var(--cyan); --r: -1deg; }
+    .stat:nth-child(4) { background: var(--green); --r: 2deg; }
+    .stat strong { display: block; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; }
+    .stat span { font-weight: 800; text-transform: uppercase; font-size: .8rem; }
+
+
+    .gallery-intro {
+      max-width: 700px;
+      color: #d7d2c6;
+      line-height: 1.7;
+      margin: -8px 0 28px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      border: 3px solid var(--white);
+      background: #151515;
+      box-shadow: 5px 5px 0 var(--purple);
+      transform: rotate(var(--tilt));
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .gallery-card:nth-child(3n) { box-shadow: 5px 5px 0 var(--pink); }
+    .gallery-card:nth-child(4n) { box-shadow: 5px 5px 0 var(--cyan); }
+    .gallery-card:hover {
+      transform: translateY(-5px) rotate(0deg);
+      box-shadow: 8px 8px 0 var(--yellow);
+    }
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #222;
+    }
+    .gallery-label {
+      display: block;
+      padding: 9px 8px;
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--white);
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+    .gallery-note {
+      margin-top: 24px;
+      color: #aaa59b;
+      font-size: .9rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .about-grid p { color: #d7d2c6; line-height: 1.8; }
+    .bullet-list { padding: 0; list-style: none; margin: 20px 0 0; }
+    .bullet-list li { margin: 12px 0; }
+    .bullet-list li::before { content: "✦"; color: var(--yellow); margin-right: 10px; }
+
+    .mint-card {
+      background: var(--yellow);
+      color: var(--ink);
+      border: 4px solid var(--white);
+      padding: 28px;
+      box-shadow: 9px 9px 0 var(--pink);
+      transform: rotate(1deg);
+    }
+    .mint-card h3 {
+      font-family: "Permanent Marker", cursive;
+      font-size: 2.2rem;
+      margin: 0 0 10px;
+    }
+    .mint-card p { color: var(--ink); line-height: 1.6; }
+    .mint-status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 9px 12px;
+      border: 3px solid var(--ink);
+      background: var(--white);
+      font-weight: 900;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .roadmap article {
+      border: 3px solid var(--white);
+      padding: 22px;
+      background: #151515;
+      box-shadow: 5px 5px 0 var(--cyan);
+    }
+    .roadmap article:nth-child(2) { box-shadow: 5px 5px 0 var(--pink); }
+    .roadmap article:nth-child(3) { box-shadow: 5px 5px 0 var(--yellow); }
+    .roadmap h3 { margin-top: 0; color: var(--cyan); font-family: "Permanent Marker", cursive; font-size: 1.7rem; }
+    .roadmap p { color: #d7d2c6; line-height: 1.7; }
+
+    footer {
+      margin-top: 50px;
+      border-top: 4px solid var(--white);
+      padding: 30px 0 45px;
+      text-align: center;
+      color: #bdb8ad;
+    }
+    footer strong { color: var(--pink); font-family: "Permanent Marker", cursive; font-size: 1.5rem; }
+
+    @media (max-width: 800px) {
+      .nav { align-items: flex-start; padding: 16px 0; flex-direction: column; }
+      nav { justify-content: flex-start; gap: 6px; }
+      .hero { padding-top: 45px; }
+      h1 { letter-spacing: -1px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .about-grid, .roadmap { grid-template-columns: 1fr; }
+      .panel { padding: 22px; }
+    }
+
+    @media (max-width: 420px) {
+      .wrap { width: min(100% - 22px, 1160px); }
+      .stats { gap: 12px; }
+      .stat { padding: 18px 8px; }
+      .btn { width: 100%; }
+      .gallery { gap: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">RARE AMIGOS ✦</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#explore">Explore</a>
+        <a href="#roadmap">Plans</a>
+        <a href="https://x.com/RareAmigosNFT" target="_blank" rel="noopener">X / Twitter ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="sticker">100% AMIGO · NO RULES</div>
+      <h1>RARE<br>AMIGOS</h1>
+      <div class="tagline">Built Weird. Made to Collect.</div>
+      <p class="hero-copy">
+        A hand-drawn collection of strange friends on Robinhood Chain.
+        No roadmap theatre. No team allocation. Just art for the degens.
+      </p>
+      <div class="actions">
+        <a class="btn" href="#collection">Explore the Collection</a>
+        <a class="btn alt" href="https://x.com/RareAmigosNFT" target="_blank" rel="noopener">Follow on X ↗</a>
+      </div>
+    </section>
+
+    <section id="collection" class="section wrap">
+      <h2 class="section-title">The Numbers</h2>
+      <div class="stats">
+        <div class="stat"><strong>10,000</strong><span>Total PFPs</span></div>
+        <div class="stat"><strong>11</strong><span>Characters</span></div>
+        <div class="stat"><strong>18</strong><span>Trait Layers</span></div>
+        <div class="stat"><strong>100%</strong><span>Amigo Energy</span></div>
+      </div>
+    </section>
+
+
+    <section id="explore" class="section wrap">
+      <h2 class="section-title">Explore the Amigos</h2>
+      <p class="gallery-intro">
+        A small preview of the Rare Amigos universe. More strange friends,
+        colors, and chaos will be revealed as the collection grows.
+      </p>
+      <div class="gallery">
+        <figure class="gallery-card" style="--tilt:-1.5deg"><img src="assets/rare/139521cbfec58f16f782e36d10cf34d7.png" alt="Rare Amigos preview 01" loading="lazy"><figcaption class="gallery-label">Amigo #01</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1deg"><img src="assets/rare/300a4bbe45578b6d71c84bce82c04e8.png" alt="Rare Amigos preview 02" loading="lazy"><figcaption class="gallery-label">Amigo #02</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-.8deg"><img src="assets/rare/364a5baea9581b22d5b0cd90ea2cbfb.png" alt="Rare Amigos preview 03" loading="lazy"><figcaption class="gallery-label">Amigo #03</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1.6deg"><img src="assets/rare/381b69ce9ac6354f1c22fe592b472435.png" alt="Rare Amigos preview 04" loading="lazy"><figcaption class="gallery-label">Amigo #04</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-1deg"><img src="assets/rare/3ca0cf85b8d81954c1966f9cdfbd4da9.png" alt="Rare Amigos preview 05" loading="lazy"><figcaption class="gallery-label">Amigo #05</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:.8deg"><img src="assets/rare/4f9524c82d74b9aeec1a09f7e5d04dc2.png" alt="Rare Amigos preview 06" loading="lazy"><figcaption class="gallery-label">Amigo #06</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-1.2deg"><img src="assets/rare/51e4fbfa4d8462b9b023fdca9b0fc2b5.png" alt="Rare Amigos preview 07" loading="lazy"><figcaption class="gallery-label">Amigo #07</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1.4deg"><img src="assets/rare/56016a2731b0a9d9b220a4b84240b973.png" alt="Rare Amigos preview 08" loading="lazy"><figcaption class="gallery-label">Amigo #08</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-.7deg"><img src="assets/rare/58b7da49bd1dacc92abd7b22850e4ca4.png" alt="Rare Amigos preview 09" loading="lazy"><figcaption class="gallery-label">Amigo #09</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1deg"><img src="assets/rare/66692c5540e44bec01520e35d69f42c9.png" alt="Rare Amigos preview 10" loading="lazy"><figcaption class="gallery-label">Amigo #10</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-1.5deg"><img src="assets/rare/7a4541c42e16cb043f81ffaf7877ded3.png" alt="Rare Amigos preview 11" loading="lazy"><figcaption class="gallery-label">Amigo #11</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:.9deg"><img src="assets/rare/7aabdfcbb3ec146b8fa6522bd67f6ba2.png" alt="Rare Amigos preview 12" loading="lazy"><figcaption class="gallery-label">Amigo #12</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-.9deg"><img src="assets/rare/7bed793697449daed0c6a2f63770177.png" alt="Rare Amigos preview 13" loading="lazy"><figcaption class="gallery-label">Amigo #13</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1.3deg"><img src="assets/rare/8197d5c9ee3293815e5685f06e4da2e2.png" alt="Rare Amigos preview 14" loading="lazy"><figcaption class="gallery-label">Amigo #14</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-1deg"><img src="assets/rare/84d15c22df921fe419d90525213a3a80.png" alt="Rare Amigos preview 15" loading="lazy"><figcaption class="gallery-label">Amigo #15</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:.7deg"><img src="assets/rare/91da5a614ffed3a073fe60ae4a9a2cc3.png" alt="Rare Amigos preview 16" loading="lazy"><figcaption class="gallery-label">Amigo #16</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-1.2deg"><img src="assets/rare/bbc4b50009a35a45a28898429ae4e394.png" alt="Rare Amigos preview 17" loading="lazy"><figcaption class="gallery-label">Amigo #17</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1deg"><img src="assets/rare/c0615300a314c8ee125e25533b97b0e6.png" alt="Rare Amigos preview 18" loading="lazy"><figcaption class="gallery-label">Amigo #18</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:-.8deg"><img src="assets/rare/e3400e40fc637b295368934d10a0849b.png" alt="Rare Amigos preview 19" loading="lazy"><figcaption class="gallery-label">Amigo #19</figcaption></figure>
+        <figure class="gallery-card" style="--tilt:1.4deg"><img src="assets/rare/f21fc33ff776a67f767edf536b3edbdf.png" alt="Rare Amigos preview 20" loading="lazy"><figcaption class="gallery-label">Amigo #20</figcaption></figure>
+      </div>
+      <p class="gallery-note">Image previews are loaded from <strong>assets/rare/</strong>.</p>
+    </section>
+
+    <section id="about" class="section wrap">
+      <h2 class="section-title">About the Amigos</h2>
+      <div class="about-grid">
+        <div class="panel">
+          <p>
+            Rare Amigos is an art-first PFP collection made for people who
+            appreciate weird faces, loud colors, and collectible chaos.
+            Every Amigo has a story — even when the story makes absolutely
+            no sense.
+          </p>
+          <ul class="bullet-list">
+            <li>Hand-drawn visual identity</li>
+            <li>10,000 unique PFPs</li>
+            <li>Built on Robinhood Chain</li>
+            <li>Full IP control for holders</li>
+            <li>No roadmap, no team allocation, no BS</li>
+          </ul>
+        </div>
+        <aside class="mint-card">
+          <h3>Stealth Mint</h3>
+          <p>
+            Rare Amigos stealth mint is coming via OpenSea.
+            Stay close, keep your eyes open, and watch the official account
+            for the announcement.
+          </p>
+          <div class="mint-status">COMING SOON 👀</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section wrap">
+      <h2 class="section-title">The Plan</h2>
+      <div class="roadmap">
+        <article>
+          <h3>01 · Mint</h3>
+          <p>Launch the collection and bring 10,000 weird friends on-chain.</p>
+        </article>
+        <article>
+          <h3>02 · Collect</h3>
+          <p>Trade, display, remix, and enjoy your Amigo. Every face has a story.</p>
+        </article>
+        <article>
+          <h3>03 · Community</h3>
+          <p>Build a home for collectors who like art, chaos, and zero unnecessary promises.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>RARE AMIGOS ✦</strong>
+      <p>Every Face Has a Story.</p>
+      <p>© 2026 Rare Amigos · Built on Robinhood Chain</p>
+    </div>
+  </footer>
+</body>
+                                                              </html>
